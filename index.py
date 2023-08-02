@@ -25,14 +25,13 @@ options.add_argument("----start-maximized")
 options.add_argument("--window-size=1440,789")
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
-autocontrol = 'no'
+autocontrol = 'yes'
 if autocontrol == 'yes':
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    #options.add_argument("--window-size=1420,1080")
-    display = Display(visible=0, size=(1420,1080))
+    options.add_argument("--window-size=1420,1080")
+    display = Display(visible=0, size=(1420, 1080))
     display.start()
-    pass
 ip_address=requests.get('https://api.ipify.org').text
 
 count = 0
@@ -79,7 +78,7 @@ while True:
                 print('ua', ua)
                 print(f"user-agent={ua}")
                 options.add_argument(f"user-agent={ua[0]}")
-                driver = webdriver.Chrome(options=options)
+                driver = webdriver.Chrome(ChromeDriverManager(version='114.0.5735.90').install(), options=options)
                 driver.implicitly_wait(30)
                 driver.get('chrome://settings/')
                 driver.execute_script('chrome.settingsPrivate.setDefaultZoom(0.50);') #keep # at begining to remove zoom settings
